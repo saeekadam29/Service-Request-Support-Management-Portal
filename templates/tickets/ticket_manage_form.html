@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Manage Ticket #{{ ticket.id }}{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h2><i class="bi bi-tools me-2"></i>Manage Ticket #{{ ticket.id }}</h2>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="section-card">
+            <h6 class="text-muted mb-3">{{ ticket.title }}</h6>
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Status</label>
+                        {{ form.status }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Priority</label>
+                        {{ form.priority }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Assign to Agent</label>
+                        {{ form.assigned_agent }}
+                    </div>
+                </div>
+                <div class="mb-3 mt-3">
+                    <label class="form-label fw-semibold">Resolution Notes</label>
+                    {{ form.resolution_notes }}
+                </div>
+                <button type="submit" class="btn btn-primary mt-2"><i class="bi bi-check2-circle me-1"></i> Save Changes</button>
+                <a href="{% url 'tickets:ticket_detail' ticket.pk %}" class="btn btn-light mt-2">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
